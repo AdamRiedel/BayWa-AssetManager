@@ -1,4 +1,6 @@
-export function NavBar(color) {
+import "./NavBar.style.css";
+
+export function NavBar() {
   return (
     <>
       <header>
