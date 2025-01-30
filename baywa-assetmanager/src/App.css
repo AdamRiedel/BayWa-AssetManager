@@ -6,9 +6,9 @@
 
 :root {
   --baywa-green: #0f8345;
-  --baywa-light-gray: #51616f;
-  --baywa-dark-grey: #323c45;
-  --baywa-grey: #f4f4f4;
+  --baywa-stone-grey-600: #51616f;
+  --baywa-stone-grey-900: #323c45;
+  --baywa-stone-grey-50: #f9fafb;
 }
 
 /* @font-face {
@@ -21,4 +21,5 @@
 
 body {
   background-color: var(--baywa-grey);
+  background-color: var(--baywa-stone-grey-50);
 }
