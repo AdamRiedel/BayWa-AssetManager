@@ -11,15 +11,48 @@
   --baywa-stone-grey-50: #f9fafb;
 }
 
-/* @font-face {
-  font-family: 'MeineSchriftart';
-  src: url('/fonts/meine-schriftart.woff2') format('woff2'),
-       url('/fonts/meine-schriftart.woff') format('woff');
+@font-face {
+  font-family: "BayWa-bold";
+  src: url("../src/fonts/baywa-sans-bold.woff") format("woff"),
+    url("../src/fonts/baywa-sans-bold.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
-} */
+}
+
+@font-face {
+  font-family: "BayWa-book";
+  src: url("../src/fonts/baywa-sans-book.woff") format("woff"),
+    url("../src/fonts/baywa-sans-book.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "BayWa-light";
+  src: url("../src/fonts/baywa-sans-light.woff") format("woff"),
+    url("../src/fonts/baywa-sans-light.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "BayWa-medium";
+  src: url("../src/fonts/baywa-sans-medium.woff") format("woff"),
+    url("../src/fonts/baywa-sans-medium.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "BayWa-semiBold";
+  src: url("../src/fonts/baywa-sans-semiBold.woff") format("woff"),
+    url("../src/fonts/baywa-sans-semiBold.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
 
 body {
-  background-color: var(--baywa-grey);
   background-color: var(--baywa-stone-grey-50);
+  font-family: BayWa-medium, Arial, Helvetica, sans-serif;
+  font-size: 1.5rem;
 }
