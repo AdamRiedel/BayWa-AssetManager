@@ -12,10 +12,14 @@ export function NavBar() {
           >
             <img src="./src/assets/baywa-logo-small.svg" alt="BayWa-Logo" />
           </a>
-          <div className="navbar-items">
+          <div className="items-container">
             <a href="/">Home</a>
             <a href="/">Assets</a>
-            <a href="/">+ Neues Asset</a>
+            <div className="button-container">
+              <a className="button" href="/">
+                + Neues Asset
+              </a>
+            </div>
           </div>
         </nav>
       </header>
