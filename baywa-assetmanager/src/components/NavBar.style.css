@@ -9,23 +9,37 @@ header {
     padding: 2rem;
     gap: 1rem;
     justify-content: space-between;
-    width: 100%;
+    width: 90%;
   }
 
   img {
     display: flex;
     width: 9.375rem;
     height: 3rem;
+    margin-left: 2rem;
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
   }
 
   .items-container {
     display: flex;
-    gap: 1rem;
+    margin-left: 5rem;
+    gap: 2rem;
     justify-content: space-between;
     width: 100%;
 
     .button-container {
       margin-left: auto;
+
+      .button {
+        background-color: var(--baywa-green);
+        color: white;
+        padding: 1rem 1rem;
+        border-radius: 0.625rem;
+      }
     }
   }
 }
