@@ -15,11 +15,8 @@ export function NavBar() {
           <div className="navbar-items">
             <a href="/">Home</a>
             <a href="/">Assets</a>
+            <a href="/">+ Neues Asset</a>
           </div>
-          <button>
-            <img src="./src/assets/plus.svg" alt="" />
-            <h3>Neues Asset</h3>
-          </button>
         </nav>
       </header>
     </>
