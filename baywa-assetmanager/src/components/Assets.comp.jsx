@@ -1,4 +1,4 @@
-export default function AssetsTwo() {
+export default function Assets() {
   const AssetList = () => {
     const assets = [
       {
