@@ -4,7 +4,6 @@ import "./Home.style.css";
 export function Home() {
   return (
     <>
-      <NavBar />
       <main>
         <h1>Willkommen zum BayWa Asset-Manager</h1>
         <p className="text-one">

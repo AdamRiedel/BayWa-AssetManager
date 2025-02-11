@@ -8,6 +8,7 @@ import AssetsRoute from "./routes/Assets.routes.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+    <App />
     <BrowserRouter>
       <Suspense>
         <Routes>
