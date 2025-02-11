@@ -14,7 +14,7 @@ export function NavBar() {
           </a>
           <div className="items-container">
             <a href="/">Home</a>
-            <a href="/">Assets</a>
+            <a href="/assets">Assets</a>
             <div className="button-container">
               <a className="button" href="/">
                 + Neues Asset
