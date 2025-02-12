@@ -1,3 +1,4 @@
+import CreateAsset from "./CreateAsset.comp";
 import "./NavBar.style.css";
 
 export function NavBar() {
@@ -16,9 +17,7 @@ export function NavBar() {
             <a href="/">Home</a>
             <a href="/assets">Assets</a>
             <div className="button-container">
-              <a className="button" href="/">
-                + Neues Asset
-              </a>
+              <CreateAsset />
             </div>
           </div>
         </nav>
