@@ -122,7 +122,7 @@ export default function CreateAsset() {
           ),
         }[modal]
       }
-      <button className="trigger-modal" onClick={onTriggerModal}>
+      <button className="trigger-modal button-modal" onClick={onTriggerModal}>
         + Neues Asset
       </button>
     </>
