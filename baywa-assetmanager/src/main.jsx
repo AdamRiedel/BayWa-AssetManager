@@ -5,6 +5,7 @@ import App from "./App.jsx";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import HomeRoute from "./routes/Home.routes.jsx";
 import AssetsRoute from "./routes/Assets.routes.jsx";
+import AssetDetailRoute from "./routes/AssetDetail.routes.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -14,6 +15,7 @@ createRoot(document.getElementById("root")).render(
         <Routes>
           <Route path="/" element={<HomeRoute />} />
           <Route path="/assets" element={<AssetsRoute />} />
+          <Route path="/asset-detail" element={<AssetDetailRoute />} />
         </Routes>
       </Suspense>
     </BrowserRouter>
