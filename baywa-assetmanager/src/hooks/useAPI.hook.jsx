@@ -24,9 +24,35 @@ export function useAPI(url, initLoading) {
     getData();
   }, [url]);
 
+  const createAsset = async (newAsset) => {
+    try {
+      setLoading(true);
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newAsset),
+      });
+
+      if (!response.ok) throw new Error("Failed to create asset");
+
+      const createdAsset = await response.json();
+      setData([...data, createdAsset]);
+      return createdAsset;
+    } catch (error) {
+      setError(true);
+      console.log(error.message);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     data,
     loading,
     error,
+    createAsset,
   };
 }

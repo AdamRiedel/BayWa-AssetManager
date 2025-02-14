@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import validator from "validator";
+import { useAPI } from "../hooks/useAPI.hook.jsx";
 import "./CreateAsset.style.css";
 
 export default function CreateAsset() {
+  const { createAsset, error: apiError } = useAPI(
+    "http://localhost:3000/assets"
+  );
   const [modal, setModal] = useState(false);
   const [error, setError] = useState("");
   const [formdata, setFormData] = useState({
@@ -56,14 +60,15 @@ export default function CreateAsset() {
             price: parseFloat(price),
           };
 
+          await createAsset(newAsset);
           setModal(false);
           setFormData({
             name: "",
             type: "",
             description: "",
             serial: "",
-            rating: 0,
-            price: 0,
+            rating: "",
+            price: "",
           });
         } catch (error) {
           setError("Fehler beim Erstellen des Assets");
