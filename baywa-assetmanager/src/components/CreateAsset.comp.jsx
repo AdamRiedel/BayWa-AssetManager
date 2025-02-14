@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import validator from "validator";
 import { useAPI } from "../hooks/useAPI.hook.jsx";
 import "./CreateAsset.style.css";
