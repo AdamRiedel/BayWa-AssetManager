@@ -39,8 +39,7 @@ header {
 }
 
 .active {
-  color: #28a745;
+  color: var(--baywa-green);
   font-weight: bold;
-  /* Optional: Füge einen Unterstrich hinzu */
-  border-bottom: 2px solid #28a745;
+  border-bottom: 2px solid var(--baywa-green);
 }
