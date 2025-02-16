@@ -9,8 +9,8 @@ import AssetDetailRoute from "./routes/AssetDetail.routes.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <App />
     <BrowserRouter>
+      <App />
       <Suspense>
         <Routes>
           <Route path="/" element={<HomeRoute />} />
