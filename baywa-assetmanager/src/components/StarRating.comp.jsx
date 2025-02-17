@@ -44,6 +44,7 @@ export const StarRating = ({ rating, maxRating = 5 }) => {
   return (
     <div className="star-rating">
       <div className="stars-container">{renderStars()}</div>
+      <span className="rating-number">({Number(rating).toFixed(1)})</span>
     </div>
   );
 };

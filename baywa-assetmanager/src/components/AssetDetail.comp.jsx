@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom"; // useNavigate hinzugefügt
 import { useAPI } from "../hooks/useAPI.hook";
 import "./AssetDetail.styles.css";
+import { StarRating } from "./StarRating.comp";
 
 export default function AssetDetail() {
   const { id } = useParams();
@@ -49,7 +50,11 @@ export default function AssetDetail() {
             )}
           </div>
           <div className="rating">
-            <span>Rating: {asset.rating || "Keine Bewertung"}</span>
+            {asset.rating ? (
+              <StarRating rating={Number(asset.rating)} />
+            ) : (
+              <span>Keine Bewertung verfügbar</span>
+            )}
           </div>
           <div className="serial">
             <span>Serial: {asset.serial || "Keine Seriennummer"}</span>
