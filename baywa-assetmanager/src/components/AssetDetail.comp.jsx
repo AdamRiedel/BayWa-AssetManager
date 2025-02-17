@@ -28,35 +28,37 @@ export default function AssetDetail() {
       <button onClick={handleBack} className="back-button">
         ← Zurück zu Assets
       </button>
-      <div className="image-container">
-        <img
-          src={asset.imgUrl || "https://picsum.photos/500/750"}
-          alt={asset.name || "Asset Bild"}
-        />
-      </div>
-      <div className="info-container">
-        <h1 className="info-title">{asset.name || "Kein Name verfügbar"}</h1>
-        <div className="tag-container">
-          <span className="tag">{asset.type || "Kein Typ"}</span>
+      <div className="content-wrapper">
+        <div className="image-container">
+          <img
+            src={asset.imgUrl || "https://picsum.photos/500/750"}
+            alt={asset.name || "Asset Bild"}
+          />
         </div>
-        <div className="pricing">
-          {asset.price && (
-            <>
-              <span className="info-pricing">{asset.price}</span>
-              <span className="info-currency">{asset.currency}</span>
-            </>
-          )}
-        </div>
-        <div className="rating">
-          <span>Rating: {asset.rating || "Keine Bewertung"}</span>
-        </div>
-        <div className="serial">
-          <span>Serial: {asset.serial || "Keine Seriennummer"}</span>
-        </div>
-        <div className="description">
-          <p className="info-text">
-            {asset.description || "Keine Beschreibung verfügbar"}
-          </p>
+        <div className="info-container">
+          <h1 className="info-title">{asset.name || "Kein Name verfügbar"}</h1>
+          <div className="tag-container">
+            <span className="tag">{asset.type || "Kein Typ"}</span>
+          </div>
+          <div className="pricing">
+            {asset.price && (
+              <>
+                <span className="info-pricing">{asset.price}</span>
+                <span className="info-currency">{asset.currency}</span>
+              </>
+            )}
+          </div>
+          <div className="rating">
+            <span>Rating: {asset.rating || "Keine Bewertung"}</span>
+          </div>
+          <div className="serial">
+            <span>Serial: {asset.serial || "Keine Seriennummer"}</span>
+          </div>
+          <div className="description">
+            <p className="info-text">
+              {asset.description || "Keine Beschreibung verfügbar"}
+            </p>
+          </div>
         </div>
       </div>
     </div>
