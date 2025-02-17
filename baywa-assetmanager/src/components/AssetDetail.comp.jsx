@@ -1,14 +1,20 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; // useNavigate hinzugefügt
 import { useAPI } from "../hooks/useAPI.hook";
 import "./AssetDetail.styles.css";
 
 export default function AssetDetail() {
   const { id } = useParams();
+  const navigate = useNavigate(); // Navigation-Hook
   const {
     data: assetResponse,
     loading,
     error,
   } = useAPI(`http://localhost:3000/assets/${id}`, true);
+
+  // Handler für den Zurück-Button
+  const handleBack = () => {
+    navigate("/assets");
+  };
 
   if (loading) return <div>Lädt...</div>;
   if (error) return <div>Error: Ein Fehler ist aufgetreten</div>;
@@ -19,6 +25,9 @@ export default function AssetDetail() {
 
   return (
     <div className="asset-detail">
+      <button onClick={handleBack} className="back-button">
+        ← Zurück zu Assets
+      </button>
       <div className="image-container">
         <img
           src={asset.imgUrl || "https://picsum.photos/500/750"}
