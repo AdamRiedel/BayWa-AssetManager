@@ -1,12 +1,12 @@
 .star-rating {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .stars-container {
   display: flex;
-  gap: 2px;
+  gap: 0.125rem;
 }
 
 .star-wrapper {
