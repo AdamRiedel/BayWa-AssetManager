@@ -15,7 +15,7 @@ createRoot(document.getElementById("root")).render(
         <Routes>
           <Route path="/" element={<HomeRoute />} />
           <Route path="/assets" element={<AssetsRoute />} />
-          <Route path="/asset-detail" element={<AssetDetailRoute />} />
+          <Route path="/asset/:id" element={<AssetDetailRoute />} />
         </Routes>
       </Suspense>
     </BrowserRouter>
