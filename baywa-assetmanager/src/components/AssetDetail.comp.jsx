@@ -1,35 +1,55 @@
+import { useParams } from "react-router-dom";
+import { useAPI } from "../hooks/useAPI.hook";
 import "./AssetDetail.styles.css";
 
 export default function AssetDetail() {
-  return (
-    <>
-      <div className="asset-detail">
-        <div className="image-container">
-          <img src="https://picsum.photos/500/750" alt="" />
-        </div>
-        <div className="info-container">
-          <h1 className="info-title">Der Name des Windes</h1>
-          <div className="tag-contaner">Buch</div>
-          <div className="pricing">
-            <h5 className="info-currency">€</h5>
-            <h3 className="info-pricing">24,99</h3>
-          </div>
-          <div className="rating">
-            <p>Stars</p>
-            <p>(4,5)</p>
-          </div>
-          <p>Serial: HP123</p>
+  const { id } = useParams();
+  const {
+    data: assetResponse,
+    loading,
+    error,
+  } = useAPI(`http://localhost:3000/assets/${id}`, true);
 
+  if (loading) return <div>Lädt...</div>;
+  if (error) return <div>Error: Ein Fehler ist aufgetreten</div>;
+  if (!assetResponse) return <div>Asset nicht gefunden</div>;
+
+  // Extrahiere das erste Asset aus der Response
+  const asset = Array.isArray(assetResponse) ? assetResponse[0] : assetResponse;
+
+  return (
+    <div className="asset-detail">
+      <div className="image-container">
+        <img
+          src={asset.imgUrl || "https://picsum.photos/500/750"}
+          alt={asset.name || "Asset Bild"}
+        />
+      </div>
+      <div className="info-container">
+        <h1 className="info-title">{asset.name || "Kein Name verfügbar"}</h1>
+        <div className="tag-container">
+          <span className="tag">{asset.type || "Kein Typ"}</span>
+        </div>
+        <div className="pricing">
+          {asset.price && (
+            <>
+              <span className="info-pricing">{asset.price}</span>
+              <span className="info-currency">{asset.currency}</span>
+            </>
+          )}
+        </div>
+        <div className="rating">
+          <span>Rating: {asset.rating || "Keine Bewertung"}</span>
+        </div>
+        <div className="serial">
+          <span>Serial: {asset.serial || "Keine Seriennummer"}</span>
+        </div>
+        <div className="description">
           <p className="info-text">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae,
-            delectus magni tempore eos eius corporis corrupti exercitationem
-            explicabo voluptates, unde, voluptatibus nemo beatae. Totam facere
-            voluptate ab! In, dolorem iure illo culpa optio beatae voluptatum,
-            rem fuga consectetur itaque cumque, tenetur officia quaerat.
-            Voluptate labore, beatae asperiores quos fugit voluptatem!
+            {asset.description || "Keine Beschreibung verfügbar"}
           </p>
         </div>
       </div>
-    </>
+    </div>
   );
 }
