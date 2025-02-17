@@ -1,221 +1,104 @@
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Assets.style.css";
+
 export default function Assets() {
-  const AssetList = () => {
-    const assets = [
-      {
-        id: 1,
-        threat: 3,
-        name: "Main Website",
-        type: "Web",
-        listing: "ABC Listing",
-        vulnerabilities: 198,
-        location: "Durham",
-        user: "Darren Kreal",
-        lastUpdated: "5 minutes ago",
-        status: true,
-      },
-      {
-        id: 2,
-        threat: 2,
-        name: "Consumer App",
-        type: "Mobile",
-        listing: "ABC Listing",
-        vulnerabilities: 777,
-        location: "Hoofdorp",
-        user: "Tarak Kulokov",
-        lastUpdated: "7 minutes ago",
-        status: false,
-      },
-      // Add more entries as needed
-    ];
+  const navigate = useNavigate();
+  const [assets, setAssets] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
-    return (
-      <div
-        style={{
-          padding: "16px",
-          border: "1px solid #ddd",
-          borderRadius: "8px",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: "16px",
-          }}
-        >
-          <h2 style={{ fontSize: "20px", fontWeight: "bold" }}>Asset List</h2>
-          <button
-            style={{
-              padding: "8px 16px",
-              backgroundColor: "#007bff",
-              color: "#fff",
-              border: "none",
-              borderRadius: "4px",
-              cursor: "pointer",
-            }}
-          >
-            Add New Asset
-          </button>
-        </div>
+  useEffect(() => {
+    fetchAssets();
+  }, []);
 
-        <input
-          style={{
-            width: "100%",
-            padding: "8px",
-            marginBottom: "16px",
-            border: "1px solid #ddd",
-            borderRadius: "4px",
-          }}
-          placeholder="Search assets..."
-        />
-
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
-          <thead>
-            <tr>
-              <th
-                style={{
-                  textAlign: "left",
-                  padding: "8px",
-                  borderBottom: "1px solid #ddd",
-                }}
-              >
-                Threat
-              </th>
-              <th
-                style={{
-                  textAlign: "left",
-                  padding: "8px",
-                  borderBottom: "1px solid #ddd",
-                }}
-              >
-                Name
-              </th>
-              <th
-                style={{
-                  textAlign: "left",
-                  padding: "8px",
-                  borderBottom: "1px solid #ddd",
-                }}
-              >
-                Type
-              </th>
-              <th
-                style={{
-                  textAlign: "left",
-                  padding: "8px",
-                  borderBottom: "1px solid #ddd",
-                }}
-              >
-                Listing
-              </th>
-              <th
-                style={{
-                  textAlign: "left",
-                  padding: "8px",
-                  borderBottom: "1px solid #ddd",
-                }}
-              >
-                Vulnerabilities
-              </th>
-              <th
-                style={{
-                  textAlign: "left",
-                  padding: "8px",
-                  borderBottom: "1px solid #ddd",
-                }}
-              >
-                Location
-              </th>
-              <th
-                style={{
-                  textAlign: "left",
-                  padding: "8px",
-                  borderBottom: "1px solid #ddd",
-                }}
-              >
-                User
-              </th>
-              <th
-                style={{
-                  textAlign: "left",
-                  padding: "8px",
-                  borderBottom: "1px solid #ddd",
-                }}
-              >
-                Last Update
-              </th>
-              <th
-                style={{
-                  textAlign: "left",
-                  padding: "8px",
-                  borderBottom: "1px solid #ddd",
-                }}
-              >
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {assets.map((asset) => (
-              <tr key={asset.id}>
-                <td style={{ padding: "8px", borderBottom: "1px solid #ddd" }}>
-                  <div
-                    style={{
-                      width: "24px",
-                      height: "24px",
-                      borderRadius: "50%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "#fff",
-                      backgroundColor:
-                        asset.threat === 3
-                          ? "#dc3545"
-                          : asset.threat === 2
-                          ? "#ffc107"
-                          : "#28a745",
-                    }}
-                  >
-                    {asset.threat}
-                  </div>
-                </td>
-                <td style={{ padding: "8px", borderBottom: "1px solid #ddd" }}>
-                  {asset.name}
-                </td>
-                <td style={{ padding: "8px", borderBottom: "1px solid #ddd" }}>
-                  {asset.type}
-                </td>
-                <td style={{ padding: "8px", borderBottom: "1px solid #ddd" }}>
-                  {asset.listing}
-                </td>
-                <td style={{ padding: "8px", borderBottom: "1px solid #ddd" }}>
-                  {asset.vulnerabilities}
-                </td>
-                <td style={{ padding: "8px", borderBottom: "1px solid #ddd" }}>
-                  {asset.location}
-                </td>
-                <td style={{ padding: "8px", borderBottom: "1px solid #ddd" }}>
-                  {asset.user}
-                </td>
-                <td style={{ padding: "8px", borderBottom: "1px solid #ddd" }}>
-                  {asset.lastUpdated}
-                </td>
-                <td style={{ padding: "8px", borderBottom: "1px solid #ddd" }}>
-                  <input
-                    type="checkbox"
-                    checked={asset.status}
-                    onChange={() => {}}
-                    style={{ cursor: "pointer" }}
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
+  const fetchAssets = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/assets");
+      if (!response.ok) {
+        throw new Error("Failed to fetch assets");
+      }
+      const data = await response.json();
+      setAssets(data);
+      setIsLoading(false);
+    } catch (err) {
+      setError(err.message);
+      setIsLoading(false);
+    }
   };
 
-  return <AssetList />;
+  const updateAssetStatus = async (id, newStatus) => {
+    try {
+      const response = await fetch(`http://localhost:3000/assets/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: newStatus }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update asset status");
+      }
+
+      setAssets(
+        assets.map((asset) =>
+          asset.id === id ? { ...asset, status: newStatus } : asset
+        )
+      );
+    } catch (err) {
+      console.error("Error updating asset status:", err);
+    }
+  };
+
+  const handleAssetClick = (assetId) => {
+    navigate(`/asset/${assetId}`);
+  };
+
+  const filteredAssets = assets.filter(
+    (asset) =>
+      asset.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      asset.type.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  if (isLoading) {
+    return <div className="loading">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="error">Error: {error}</div>;
+  }
+
+  return (
+    <div className="assets-container">
+      <input
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="search-input"
+        placeholder="Assets suchen..."
+      />
+
+      <table className="assets-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredAssets.map((asset) => (
+            <tr
+              key={asset.id}
+              onClick={() => handleAssetClick(asset.id)}
+              className="asset-row"
+            >
+              <td>{asset.name}</td>
+              <td>{asset.type}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
