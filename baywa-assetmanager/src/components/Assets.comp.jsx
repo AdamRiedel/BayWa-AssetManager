@@ -91,7 +91,10 @@ export default function Assets() {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Type</th>
+            <th>Typ</th>
+            <th>Beschreibung</th>
+            <th>Bewertung</th>
+            <th className="currency-column">Preis</th>
           </tr>
         </thead>
         <tbody>
@@ -103,6 +106,11 @@ export default function Assets() {
             >
               <td>{asset.name}</td>
               <td>{asset.type}</td>
+              <td>{asset.description}</td>
+              <td>{parseFloat(asset.rating).toFixed(1)}</td>
+              <td className="currency-column">
+                {asset.price} {asset.currency}
+              </td>
             </tr>
           ))}
         </tbody>

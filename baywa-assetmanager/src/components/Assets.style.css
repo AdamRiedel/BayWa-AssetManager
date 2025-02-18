@@ -81,3 +81,8 @@
 .back:active {
   transform: scale(0.98);
 }
+
+.currency-column {
+  display: flex;
+  justify-content: end;
+}
