@@ -32,15 +32,23 @@ export default function CreateAsset() {
     event.preventDefault();
     const { name, type, description, serial, rating, price } = formdata;
 
+    // Hilfsfunktion zur Validierung von Dezimalzahlen
+    const isValidDecimal = (value) => {
+      const num = parseFloat(value);
+      return !isNaN(num) && isFinite(num);
+    };
+
     switch (false) {
       case validator.matches(name.trim(), /^[a-zA-Z0-9äöüÄÖÜß ]{3,50}$/):
         setError("Name benötigt mindestens 3 Zeichen");
         break;
-      // Im onCreateAsset switch-Statement hinzufügen:
-      case Number.isInteger(parseFloat(rating)) &&
+      case isValidDecimal(rating) &&
         parseFloat(rating) >= 0 &&
         parseFloat(rating) <= 5:
-        setError("Bewertung muss eine Zahl zwischen 0 und 5 sein");
+        setError("Bewertung muss eine Dezimalzahl zwischen 0 und 5 sein");
+        break;
+      case isValidDecimal(price) && parseFloat(price) >= 0:
+        setError("Preis muss eine positive Dezimalzahl sein");
         break;
       case validator.matches(serial.trim(), /^[A-Z0-9]{3,10}$/):
         setError(
@@ -51,12 +59,12 @@ export default function CreateAsset() {
         setError("");
         try {
           const newAsset = {
-            name,
+            name: name.trim(),
             type,
-            description,
-            serial,
-            rating: parseFloat(rating),
-            price: parseFloat(price),
+            description: description.trim(),
+            serial: serial.trim(),
+            rating: parseFloat(rating).toFixed(1),
+            price: parseFloat(price).toFixed(1),
           };
 
           await createAsset(newAsset);
@@ -113,7 +121,7 @@ export default function CreateAsset() {
             />
             <input
               onChange={onInputChange}
-              placeholder="Bewertung"
+              placeholder="Bewertung (0-5)"
               value={formdata.rating}
               type="number"
               step="0.1"
