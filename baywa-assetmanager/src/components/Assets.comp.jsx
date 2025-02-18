@@ -56,6 +56,10 @@ export default function Assets() {
     navigate(`/asset/${assetId}`);
   };
 
+  const handleHomeClick = () => {
+    navigate("/");
+  };
+
   const filteredAssets = assets.filter(
     (asset) =>
       asset.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -78,6 +82,10 @@ export default function Assets() {
         className="search-input"
         placeholder="Assets suchen..."
       />
+
+      <button onClick={handleHomeClick} className="back">
+        ← Zurück zur Startseite
+      </button>
 
       <table className="assets-table">
         <thead>
