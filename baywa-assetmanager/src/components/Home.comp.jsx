@@ -1,7 +1,14 @@
 import { NavBar } from "./NavBar.comp";
+import { useNavigate } from "react-router-dom";
 import "./Home.style.css";
 
 export function Home() {
+  const navigate = useNavigate();
+
+  const handleNavigateToAssets = () => {
+    navigate("/assets");
+  };
+
   return (
     <>
       <main>
@@ -26,6 +33,9 @@ export function Home() {
           Starten Sie jetzt und optimieren Sie Ihr Asset-Management mit BayWa!
           🚀
         </p>
+        <button onClick={handleNavigateToAssets} className="cta-button">
+          Zu den Assets →
+        </button>
       </main>
     </>
   );
