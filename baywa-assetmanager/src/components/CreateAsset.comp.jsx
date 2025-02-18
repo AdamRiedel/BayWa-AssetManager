@@ -99,6 +99,7 @@ export default function CreateAsset() {
             />
             <select onChange={onInputChange} value={formdata.type} name="type">
               <option value="">Typ auswählen</option>
+              <option value="book">Buch</option>
               <option value="hardware">Hardware</option>
               <option value="license">Lizenz</option>
               <option value="accessorie">Zubehör</option>
