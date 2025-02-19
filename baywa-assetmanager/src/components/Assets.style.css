@@ -86,3 +86,34 @@
   display: flex;
   justify-content: end;
 }
+
+.actions-column {
+  white-space: nowrap;
+}
+
+.edit-button,
+.delete-button {
+  margin: 0 0.25rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #45a049;
+}
+
+.delete-button:hover {
+  background-color: #da190b;
+}
