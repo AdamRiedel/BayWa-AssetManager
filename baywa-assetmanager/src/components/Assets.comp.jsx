@@ -1,57 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Assets.style.css";
 import { TYPE_TRANSLATIONS } from "../constants/translations";
+import { useAPI } from "../hooks/useAPI.hook";
 
 export default function Assets() {
   const navigate = useNavigate();
-  const [assets, setAssets] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
-    fetchAssets();
-  }, []);
-
-  const fetchAssets = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/assets");
-      if (!response.ok) {
-        throw new Error("Failed to fetch assets");
-      }
-      const data = await response.json();
-      setAssets(data);
-      setIsLoading(false);
-    } catch (err) {
-      setError(err.message);
-      setIsLoading(false);
-    }
-  };
-
-  const updateAssetStatus = async (id, newStatus) => {
-    try {
-      const response = await fetch(`http://localhost:3000/assets/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ status: newStatus }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to update asset status");
-      }
-
-      setAssets(
-        assets.map((asset) =>
-          asset.id === id ? { ...asset, status: newStatus } : asset
-        )
-      );
-    } catch (err) {
-      console.error("Error updating asset status:", err);
-    }
-  };
+  // GET /assets Hook
+  const {
+    data: assets,
+    isLoading,
+    error,
+  } = useAPI("http://localhost:3000/assets", true);
 
   const handleAssetClick = (assetId) => {
     navigate(`/asset/${assetId}`);
@@ -61,11 +23,12 @@ export default function Assets() {
     navigate("/");
   };
 
-  const filteredAssets = assets.filter(
-    (asset) =>
-      asset.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      asset.type.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredAssets =
+    assets?.filter(
+      (asset) =>
+        asset.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        asset.type.toLowerCase().includes(searchTerm.toLowerCase())
+    ) || [];
 
   if (isLoading) {
     return <div className="loading">Loading...</div>;
