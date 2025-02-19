@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Assets.style.css";
-import { TYPE_TRANSLATIONS } from "../constants/translations";
+import { TYPE_TRANSLATIONS } from "../constants/translations.js";
 import { useAPI } from "../hooks/useAPI.hook";
+import EditAsset from "./EditAsset.comp.jsx";
 
 export default function Assets() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedAssetId, setSelectedAssetId] = useState(null);
 
   // GET /assets Hook
   const {
@@ -17,6 +19,11 @@ export default function Assets() {
 
   const handleAssetClick = (assetId) => {
     navigate(`/asset/${assetId}`);
+  };
+
+  const handleEditClick = (e, assetId) => {
+    e.stopPropagation();
+    setSelectedAssetId(assetId);
   };
 
   const handleHomeClick = () => {
@@ -40,6 +47,13 @@ export default function Assets() {
 
   return (
     <div className="assets-container">
+      {selectedAssetId && (
+        <EditAsset
+          assetId={selectedAssetId}
+          onClose={() => setSelectedAssetId(null)}
+        />
+      )}
+
       <input
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
@@ -59,6 +73,7 @@ export default function Assets() {
             <th>Beschreibung</th>
             <th>Bewertung</th>
             <th className="currency-column">Preis</th>
+            <th>Aktionen</th>
           </tr>
         </thead>
         <tbody>
@@ -74,6 +89,14 @@ export default function Assets() {
               <td>{parseFloat(asset.rating).toFixed(1)}</td>
               <td className="currency-column">
                 {asset.price} {asset.currency}
+              </td>
+              <td>
+                <button
+                  onClick={(e) => handleEditClick(e, asset.id)}
+                  className="edit-button"
+                >
+                  Bearbeiten
+                </button>
               </td>
             </tr>
           ))}
