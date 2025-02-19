@@ -74,10 +74,35 @@ export function useAPI(url, initLoading) {
     }
   };
 
+  const deleteAsset = async (id) => {
+    try {
+      setLoading(true);
+      const response = await fetch(`${url}/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) throw new Error("Failed to delete asset");
+
+      setData(data.filter((asset) => asset.id !== id));
+      return true;
+    } catch (error) {
+      setError(true);
+      console.log(error.message);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     data,
     loading,
     error,
     createAsset,
+    updateAsset,
+    deleteAsset,
   };
 }
