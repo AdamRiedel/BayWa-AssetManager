@@ -5,22 +5,23 @@ export function useAPI(url, initLoading) {
   const [loading, setLoading] = useState(initLoading);
   const [error, setError] = useState(false);
 
+  const getData = async () => {
+    try {
+      setLoading(true);
+      const request = await fetch(url);
+      if (!request.ok) throw new Error("failed to load API data");
+      const data = await request.json();
+      setData(data);
+    } catch (error) {
+      setError(true);
+      setLoading(false);
+      console.log(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const getData = async () => {
-      try {
-        setLoading(true);
-        const request = await fetch(url);
-        if (!request.ok) throw new Error("failed to load API data");
-        const data = await request.json();
-        setData(data);
-      } catch (error) {
-        setError(true);
-        setLoading(false);
-        console.log(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
     getData();
   }, [url]);
 
@@ -52,7 +53,6 @@ export function useAPI(url, initLoading) {
   const updateAsset = async (id, updatedAssetData) => {
     try {
       setLoading(true);
-      // Formatiere die numerischen Werte korrekt
       const formattedData = {
         ...updatedAssetData,
         rating: parseFloat(updatedAssetData.rating).toFixed(1),
@@ -117,5 +117,6 @@ export function useAPI(url, initLoading) {
     createAsset,
     updateAsset,
     deleteAsset,
+    reload: getData,
   };
 }

@@ -10,11 +10,11 @@ export default function Assets() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedAssetId, setSelectedAssetId] = useState(null);
 
-  // GET /assets Hook
   const {
     data: assets,
     isLoading,
     error,
+    reload,
   } = useAPI("http://localhost:3000/assets", true);
 
   const handleAssetClick = (assetId) => {
@@ -28,6 +28,11 @@ export default function Assets() {
 
   const handleHomeClick = () => {
     navigate("/");
+  };
+
+  const handleEditClose = () => {
+    setSelectedAssetId(null);
+    reload();
   };
 
   const filteredAssets =
@@ -48,10 +53,7 @@ export default function Assets() {
   return (
     <div className="assets-container">
       {selectedAssetId && (
-        <EditAsset
-          assetId={selectedAssetId}
-          onClose={() => setSelectedAssetId(null)}
-        />
+        <EditAsset assetId={selectedAssetId} onClose={handleEditClose} />
       )}
 
       <input
