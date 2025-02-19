@@ -49,25 +49,38 @@ export function useAPI(url, initLoading) {
     }
   };
 
-  const updateAsset = async (id, updatedAsset) => {
+  const updateAsset = async (id, updatedAssetData) => {
     try {
       setLoading(true);
-      const response = await fetch(`${url}/${id}`, {
+      // Formatiere die numerischen Werte korrekt
+      const formattedData = {
+        ...updatedAssetData,
+        rating: parseFloat(updatedAssetData.rating).toFixed(1),
+        price: parseFloat(updatedAssetData.price).toFixed(1),
+      };
+
+      const updateUrl = url.endsWith(`/${id}`) ? url : `${url}/${id}`;
+      const response = await fetch(updateUrl, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(updatedAsset),
+        body: JSON.stringify(formattedData),
       });
 
-      if (!response.ok) throw new Error("Failed to update asset");
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          errorData.message || "Fehler beim Aktualisieren des Assets"
+        );
+      }
 
-      const updatedAsset = await response.json();
-      setData(data.map((asset) => (asset.id === id ? updatedAsset : asset)));
-      return updatedAsset;
+      const result = await response.json();
+      setData(data.map((asset) => (asset.id === id ? result : asset)));
+      return result;
     } catch (error) {
-      setError(true);
-      console.log(error.message);
+      setError(error.message);
+      console.error("Update Fehler:", error);
       throw error;
     } finally {
       setLoading(false);
