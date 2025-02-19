@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom"; // useNavigate hinzug
 import { useAPI } from "../hooks/useAPI.hook";
 import "./AssetDetail.styles.css";
 import { StarRating } from "./StarRating.comp";
+import { TYPE_TRANSLATIONS } from "../constants/translations";
 
 export default function AssetDetail() {
   const { id } = useParams();
@@ -39,7 +40,9 @@ export default function AssetDetail() {
         <div className="info-container">
           <h1 className="info-title">{asset.name || "Kein Name verfügbar"}</h1>
           <div className="tag-container">
-            <span className="tag">{asset.type || "Kein Typ"}</span>
+            <span className="tag">
+              {TYPE_TRANSLATIONS[asset.type] || "Unbekannter Typ"}
+            </span>
           </div>
           <div className="pricing">
             {asset.price && (

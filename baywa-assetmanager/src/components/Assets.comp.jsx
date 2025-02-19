@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Assets.style.css";
+import { TYPE_TRANSLATIONS } from "../constants/translations";
 
 export default function Assets() {
   const navigate = useNavigate();
@@ -105,7 +106,7 @@ export default function Assets() {
               className="asset-row"
             >
               <td>{asset.name}</td>
-              <td>{asset.type}</td>
+              <td>{TYPE_TRANSLATIONS[asset.type]}</td>
               <td>{asset.description}</td>
               <td>{parseFloat(asset.rating).toFixed(1)}</td>
               <td className="currency-column">
