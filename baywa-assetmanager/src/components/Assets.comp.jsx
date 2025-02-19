@@ -92,7 +92,7 @@ export default function Assets() {
       const response = await fetch(
         `http://localhost:3000/assets/${editedAsset.id}`,
         {
-          method: "PUT",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },

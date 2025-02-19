@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "./EditAssetModal.styles.css";
 import { TYPE_TRANSLATIONS } from "../constants/translations";
 
@@ -6,6 +6,42 @@ export function EditAssetModal({ asset, onClose, onSave }) {
   const [editedAsset, setEditedAsset] = useState(asset);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef(null);
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files[0];
+    handleImageUpload(file);
+  };
+
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    handleImageUpload(file);
+  };
+
+  const handleImageUpload = (file) => {
+    if (file && file.type.startsWith("image/")) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setEditedAsset({ ...editedAsset, imgUrl: e.target.result });
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setError("Bitte wählen Sie eine gültige Bilddatei aus.");
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,7 +52,7 @@ export function EditAssetModal({ asset, onClose, onSave }) {
       const response = await fetch(
         `http://localhost:3000/assets/${editedAsset.id}`,
         {
-          method: "PUT",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
@@ -97,6 +133,66 @@ export function EditAssetModal({ asset, onClose, onSave }) {
               onChange={(e) =>
                 setEditedAsset({ ...editedAsset, currency: e.target.value })
               }
+            />
+          </div>
+          <div className="form-group">
+            <label>Bewertung:</label>
+            <input
+              type="number"
+              min="0"
+              max="5"
+              step="0.1"
+              value={editedAsset.rating || 0}
+              onChange={(e) =>
+                setEditedAsset({
+                  ...editedAsset,
+                  rating: parseFloat(e.target.value),
+                })
+              }
+            />
+          </div>
+          <div className="form-group">
+            <label>Bild:</label>
+            <div
+              className={`image-upload-area ${isDragging ? "dragging" : ""}`}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              onClick={() => fileInputRef.current.click()}
+            >
+              {editedAsset.imgUrl ? (
+                <div className="image-preview">
+                  <img
+                    src={editedAsset.imgUrl}
+                    alt="Vorschau"
+                    style={{
+                      maxWidth: "200px",
+                      maxHeight: "200px",
+                    }}
+                  />
+                  <button
+                    type="button"
+                    className="remove-image"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setEditedAsset({ ...editedAsset, imgUrl: null });
+                    }}
+                  >
+                    ✕
+                  </button>
+                </div>
+              ) : (
+                <div className="upload-placeholder">
+                  <span>Klicken oder Bild hierher ziehen</span>
+                </div>
+              )}
+            </div>
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileSelect}
+              accept="image/*"
+              style={{ display: "none" }}
             />
           </div>
           <div className="button-group">

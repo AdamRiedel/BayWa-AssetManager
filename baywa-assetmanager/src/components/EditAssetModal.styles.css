@@ -58,3 +58,75 @@ button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
 }
+
+.image-preview {
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  padding: 5px;
+  border-radius: 4px;
+  position: relative;
+  display: inline-block;
+}
+
+.image-preview img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input[type="number"] {
+  width: 100px;
+}
+
+input[type="url"] {
+  width: 100%;
+}
+
+.image-upload-area {
+  border: 2px dashed #ccc;
+  border-radius: 4px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-upload-area.dragging {
+  border-color: #4caf50;
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+.image-upload-area:hover {
+  border-color: #999;
+}
+
+.upload-placeholder {
+  color: #666;
+}
+
+.remove-image {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: 12px;
+}
+
+.remove-image:hover {
+  background: #cc0000;
+}
