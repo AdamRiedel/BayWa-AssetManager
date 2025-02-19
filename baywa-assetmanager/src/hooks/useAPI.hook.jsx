@@ -49,6 +49,31 @@ export function useAPI(url, initLoading) {
     }
   };
 
+  const updateAsset = async (id, updatedAsset) => {
+    try {
+      setLoading(true);
+      const response = await fetch(`${url}/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedAsset),
+      });
+
+      if (!response.ok) throw new Error("Failed to update asset");
+
+      const updatedAsset = await response.json();
+      setData(data.map((asset) => (asset.id === id ? updatedAsset : asset)));
+      return updatedAsset;
+    } catch (error) {
+      setError(true);
+      console.log(error.message);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     data,
     loading,
