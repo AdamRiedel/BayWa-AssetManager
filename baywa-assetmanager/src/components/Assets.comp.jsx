@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Assets.style.css";
 import { TYPE_TRANSLATIONS } from "../constants/translations";
-import { EditAssetModal } from "./EditAssetModal.comp";
 
 export default function Assets() {
   const navigate = useNavigate();
@@ -10,7 +9,6 @@ export default function Assets() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [editingAsset, setEditingAsset] = useState(null);
 
   useEffect(() => {
     fetchAssets();
@@ -63,58 +61,6 @@ export default function Assets() {
     navigate("/");
   };
 
-  const handleEdit = (e, asset) => {
-    e.stopPropagation();
-    setEditingAsset(asset);
-  };
-
-  const handleDelete = async (e, id) => {
-    e.stopPropagation();
-    if (window.confirm("Möchten Sie dieses Asset wirklich löschen?")) {
-      try {
-        const response = await fetch(`http://localhost:3000/assets/${id}`, {
-          method: "DELETE",
-        });
-
-        if (!response.ok) {
-          throw new Error("Fehler beim Löschen des Assets");
-        }
-
-        setAssets(assets.filter((asset) => asset.id !== id));
-      } catch (err) {
-        console.error("Fehler beim Löschen:", err);
-      }
-    }
-  };
-
-  const handleSaveEdit = async (editedAsset) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/assets/${editedAsset.id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(editedAsset),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Fehler beim Aktualisieren des Assets");
-      }
-
-      setAssets(
-        assets.map((asset) =>
-          asset.id === editedAsset.id ? editedAsset : asset
-        )
-      );
-      setEditingAsset(null);
-    } catch (err) {
-      console.error("Fehler beim Speichern:", err);
-    }
-  };
-
   const filteredAssets = assets.filter(
     (asset) =>
       asset.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -150,7 +96,6 @@ export default function Assets() {
             <th>Beschreibung</th>
             <th>Bewertung</th>
             <th className="currency-column">Preis</th>
-            <th>Aktionen</th>
           </tr>
         </thead>
         <tbody>
@@ -167,32 +112,10 @@ export default function Assets() {
               <td className="currency-column">
                 {asset.price} {asset.currency}
               </td>
-              <td className="actions-column">
-                <button
-                  onClick={(e) => handleEdit(e, asset)}
-                  className="edit-button"
-                >
-                  Bearbeiten
-                </button>
-                <button
-                  onClick={(e) => handleDelete(e, asset.id)}
-                  className="delete-button"
-                >
-                  Löschen
-                </button>
-              </td>
             </tr>
           ))}
         </tbody>
       </table>
-
-      {editingAsset && (
-        <EditAssetModal
-          asset={editingAsset}
-          onClose={() => setEditingAsset(null)}
-          onSave={handleSaveEdit}
-        />
-      )}
     </div>
   );
 }
