@@ -10,8 +10,8 @@ export default function EditAsset({ assetId, onClose }) {
     name: "",
     type: "",
     description: "",
-    rating: 0,
-    price: 0,
+    rating: "",
+    price: "",
     currency: "€",
   });
 
@@ -28,8 +28,8 @@ export default function EditAsset({ assetId, onClose }) {
         name: asset.name || "",
         type: asset.type || "",
         description: asset.description || "",
-        rating: asset.rating || 0,
-        price: asset.price || 0,
+        rating: asset.rating,
+        price: asset.price,
         currency: asset.currency || "€",
       });
     }
