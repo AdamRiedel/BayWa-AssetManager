@@ -12,6 +12,9 @@ export function Home() {
     <>
       <main>
         <h1>Willkommen zum BayWa Asset-Manager</h1>
+        <a href="#cta-section" className="scroll-down">
+          ⬇️
+        </a>
         <p className="text-one">
           Effizientes Asset-Management war noch nie so einfach! Mit dem BayWa
           Asset-Manager behalten Sie jederzeit den Überblick über Ihre Artikel,
@@ -32,9 +35,11 @@ export function Home() {
           Starten Sie jetzt und optimieren Sie Ihr Asset-Management mit BayWa!
           🚀
         </p>
-        <button onClick={handleNavigateToAssets} className="cta-button">
-          Zu den Assets →
-        </button>
+        <div id="cta-section">
+          <button onClick={handleNavigateToAssets} className="cta-button">
+            Zu den Assets →
+          </button>
+        </div>
       </main>
     </>
   );
