@@ -70,16 +70,16 @@ export default function Assets() {
         <EditAsset assetId={selectedAssetId} onClose={handleEditClose} />
       )}
 
+      <button onClick={handleHomeClick} className="back">
+        ← Zurück zur Startseite
+      </button>
+
       <input
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         className="search-input"
         placeholder="Assets suchen..."
       />
-
-      <button onClick={handleHomeClick} className="back">
-        ← Zurück zur Startseite
-      </button>
 
       <table className="assets-table">
         <thead>
@@ -88,7 +88,7 @@ export default function Assets() {
             <th>Typ</th>
             <th>Beschreibung</th>
             <th>Bewertung</th>
-            <th className="currency-column">Preis</th>
+            <th>Preis</th>
             <th>Aktionen</th>
           </tr>
         </thead>

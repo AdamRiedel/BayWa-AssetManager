@@ -1,6 +1,6 @@
 .assets-container {
   padding: 1.5rem;
-  max-width: 75rem;
+  max-width: 85rem;
   margin: 0 auto;
 }
 
@@ -38,7 +38,7 @@
 
 .assets-table th:first-child,
 .assets-table td:first-child {
-  width: 15rem; /* Kleinere Breite für die Namensspalte */
+  width: 25rem; /* Kleinere Breite für die Namensspalte */
   text-align: left; /* Name linksbündig lassen */
 }
 
