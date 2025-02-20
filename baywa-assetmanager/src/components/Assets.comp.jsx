@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Assets.style.css";
 import { TYPE_TRANSLATIONS } from "../constants/translations.js";
@@ -6,10 +6,6 @@ import { useAPI } from "../hooks/useAPI.hook";
 import EditAsset from "./EditAsset.comp.jsx";
 
 export default function Assets() {
-  const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedAssetId, setSelectedAssetId] = useState(null);
-
   const {
     data: assets,
     isLoading,
@@ -17,6 +13,14 @@ export default function Assets() {
     reload,
     deleteAsset,
   } = useAPI("http://localhost:3000/assets", true);
+
+  useEffect(() => {
+    reload();
+  }, [reload]);
+
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedAssetId, setSelectedAssetId] = useState(null);
 
   const handleAssetClick = (assetId) => {
     navigate(`/asset/${assetId}`);

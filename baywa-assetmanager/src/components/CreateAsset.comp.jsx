@@ -3,7 +3,7 @@ import validator from "validator";
 import { useAPI } from "../hooks/useAPI.hook.jsx";
 import "./CreateAsset.style.css";
 
-export default function CreateAsset() {
+export default function CreateAsset({ onAssetCreated }) {
   const { createAsset, error: apiError } = useAPI(
     "http://localhost:3000/assets"
   );
@@ -77,6 +77,11 @@ export default function CreateAsset() {
             rating: "",
             price: "",
           });
+
+          // Hier den Callback aufrufen
+          if (onAssetCreated) {
+            onAssetCreated();
+          }
         } catch (error) {
           setError("Fehler beim Erstellen des Assets");
         }

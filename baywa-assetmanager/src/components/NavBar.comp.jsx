@@ -1,8 +1,15 @@
 import { NavLink } from "react-router-dom";
 import CreateAsset from "./CreateAsset.comp.jsx";
 import "./NavBar.style.css";
+import { useAPI } from "../hooks/useAPI.hook.jsx";
 
 export function NavBar() {
+  const { reload } = useAPI("http://localhost:3000/assets", true);
+
+  const handleAssetCreated = async () => {
+    await reload();
+  };
+
   return (
     <>
       <header>
@@ -28,7 +35,7 @@ export function NavBar() {
               Assets
             </NavLink>
             <div className="button-container">
-              <CreateAsset />
+              <CreateAsset onAssetCreated={handleAssetCreated} />
             </div>
           </div>
         </nav>
