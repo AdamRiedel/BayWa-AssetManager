@@ -159,9 +159,8 @@ export default function EditAsset({ assetId, onClose }) {
           </button>
           <button
             type="button"
-            className="button-modal"
+            className="button-modal-close"
             onClick={onClose}
-            style={{ backgroundColor: "var(--baywa-stone-grey-600)" }}
           >
             Abbrechen
           </button>

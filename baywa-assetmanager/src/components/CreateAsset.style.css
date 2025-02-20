@@ -63,6 +63,14 @@
       background-color: #2d5f1e;
     }
 
+    .button-modal-close {
+      background-color: var(--baywa-stone-grey-600);
+    }
+
+    .button-modal-close:hover {
+      background-color: var(--baywa-stone-grey-900);
+    }
+
     .error {
       color: #dc3545;
       font-size: 0.875rem;
