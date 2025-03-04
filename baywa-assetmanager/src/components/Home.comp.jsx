@@ -11,9 +11,14 @@ export function Home() {
   return (
     <>
       <main>
-        <h1>Willkommen zum BayWa Asset-Manager</h1>
+        <div className="title-container">
+          <h1>
+            <span className="title-top">Geräteverwaltung</span>
+            <span className="title-bottom">auf einem neuen Level</span>
+          </h1>
+        </div>
         <a href="#cta-section" className="scroll-down">
-          ⬇️
+          <div className="scroll-arrow"></div>
         </a>
         <p className="text-one">
           Effizientes Asset-Management war noch nie so einfach! Mit dem BayWa
