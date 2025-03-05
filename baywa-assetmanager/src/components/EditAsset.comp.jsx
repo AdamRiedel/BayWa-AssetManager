@@ -20,7 +20,7 @@ export default function EditAsset({ assetId, onClose }) {
     isLoading,
     error,
     updateAsset,
-  } = useAPI(`http://localhost:3000/assets/${assetId}`, true);
+  } = useAPI(`/api/assets/${assetId}`, true);
 
   useEffect(() => {
     if (asset) {

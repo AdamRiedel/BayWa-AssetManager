@@ -12,7 +12,7 @@ export default function Assets() {
     error,
     reload,
     deleteAsset,
-  } = useAPI("http://localhost:3000/assets", true);
+  } = useAPI("/api/assets", true);
 
   useEffect(() => {
     reload();

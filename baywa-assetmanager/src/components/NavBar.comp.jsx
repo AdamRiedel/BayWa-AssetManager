@@ -4,7 +4,7 @@ import "./NavBar.style.css";
 import { useAPI } from "../hooks/useAPI.hook.jsx";
 
 export function NavBar() {
-  const { reload } = useAPI("http://localhost:3000/assets", true);
+  const { reload } = useAPI("/api/assets", true);
 
   const handleAssetCreated = async () => {
     await reload();

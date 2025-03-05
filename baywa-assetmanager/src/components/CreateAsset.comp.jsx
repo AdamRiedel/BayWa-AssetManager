@@ -4,9 +4,7 @@ import { useAPI } from "../hooks/useAPI.hook.jsx";
 import "./CreateAsset.style.css";
 
 export default function CreateAsset({ onAssetCreated }) {
-  const { createAsset, error: apiError } = useAPI(
-    "http://localhost:3000/assets"
-  );
+  const { createAsset, error: apiError } = useAPI("/api/assets");
   const [modal, setModal] = useState(false);
   const [error, setError] = useState("");
   const [formdata, setFormData] = useState({
