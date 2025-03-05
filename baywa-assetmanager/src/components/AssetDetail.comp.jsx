@@ -11,7 +11,7 @@ export default function AssetDetail() {
     data: assetResponse,
     loading,
     error,
-  } = useAPI(`http://localhost:3000/assets/${id}`, true);
+  } = useAPI(`/api/assets/${id}`, true);
 
   // Handler für den Zurück-Button
   const handleBack = () => {
